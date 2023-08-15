@@ -50,6 +50,12 @@
         font-size: 18px;
         white-space: pre-wrap;
     }
+    #downloadButton {
+        margin-top: 10px;
+    }
+    downloadButton2{
+        margin-top: 10px;
+    }
 </style>
 <title>English to Braille Translator</title>
 </head>
@@ -59,6 +65,8 @@
     <textarea id="inputText" placeholder="Enter a sentence"></textarea>
     <button onclick="translateToBraille()">Translate</button>
     <div id="brailleOutput"></div>
+    <button id="downloadButton" onclick="downloadBraille()">Download Braille</button>
+    <button id="downloadButton2" onclick="downloadInput()">Download INPUT</button>
 </div>
 
 <script>
@@ -66,8 +74,39 @@
         A: '⠁', B: '⠃', C: '⠉', D: '⠙', E: '⠑', F: '⠋', G: '⠛', H: '⠓', I: '⠊', J: '⠚',
         K: '⠅', L: '⠇', M: '⠍', N: '⠝', O: '⠕', P: '⠏', Q: '⠟', R: '⠗', S: '⠎', T: '⠞',
         U: '⠥', V: '⠧', W: '⠺', X: '⠭', Y: '⠽', Z: '⠵',
-        '0': '⠴', '1': '⠂', '2': '⠆', '3': '⠒', '4': '⠲', '5': '⠢', '6': '⠖', '7': '⠶',
-        '8': '⠦', '9': '⠔'
+    '0': '⠚⠶',
+    '1': '⠁⠶',
+    '2': '⠃⠶',
+    '3': '⠉⠶',
+    '4': '⠙⠶',
+    '5': '⠑⠶',
+    '6': '⠋⠶',
+    '7': '⠛⠶',
+    '8': '⠓⠶',
+    '9': '⠊⠶',
+
+    '!': '⠮',
+    '"': '⠦⠶',
+    '#': '⠼⠲',
+    '$': '⠾⠲',
+    '%': '⠡⠲',
+    '&': '⠣⠲',
+    "'": '⠷⠂',
+    '(': '⠹⠒',
+    ')': '⠸⠒',
+    '*': '⠺⠲',
+    '+': '⠤⠤',
+    ',': '⠂⠂',
+    '-': '⠤⠲',
+    '.': '⠦⠲',
+    '/': '⠴⠲',
+    ':': '⠡',
+    ';': '⠣',
+    '<': '⠚',
+    '=': '⠐⠒',
+    '>': '⠾',
+    '?': '⠾⠤',
+    '@': '⠒⠒'
     };
 
     function translateToBraille() {
@@ -87,6 +126,22 @@
 
         const brailleOutput = document.getElementById('brailleOutput');
         brailleOutput.textContent = brailleSentence;
+    }
+    function downloadInput() {
+        const inputText = document.getElementById('inputText').value;
+        const blob = new Blob([inputText], { type: 'text/plain' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'input.txt';
+        a.click();
+    }
+    function downloadBraille() {
+        const brailleText = document.getElementById('brailleOutput').textContent;
+        const blob = new Blob([brailleText], { type: 'text/plain' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'braille.txt';
+        a.click();
     }
 </script>
 </body>
